@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Feedback Form</title>
+    <link rel="stylesheet" type="text/css" href = "index.css"/>
+    <style>
+       body {
+       margin: 0;
+       padding: 0;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+       background-color: #E6D5C3;
+       background-image: url("wallpaperfb.png");
+       background-size: cover; /* Ensure the image covers the whole background */
+       background-repeat: no-repeat; /* Prevent tiling */
+       background-position: center; /* Center the image */
+       }
+
+        .feedback-container {
+            width: 300px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .feedback-container h3 {
+            margin-bottom: 10px;
+        }
+        .emoji-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .emoji-row label {
+            cursor: pointer;
+        }
+        .emoji-row input {
+            display: none;
+        }
+        .emoji-row img {
+            width: 30px;
+            height: 30px;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        .emoji-row input:checked + img {
+            opacity: 1;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            resize: none;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-container">
+        <h3>Share Your Feedback</h3>
+        <p>How satisfied are you with the food & beverages?</p>
+        <div class="emoji-row">
+            <label>
+                <input type="radio" name="satisfaction" value="very-unsatisfied">
+                <img src="veryunsatisfied.png" alt="Very Unsatisfied">
+            </label>
+            <label>
+                <input type="radio" name="satisfaction" value="unsatisfied">
+                <img src="unsatisfied.png" alt="Unsatisfied">
+            </label>
+            <label>
+                <input type="radio" name="satisfaction" value="neutral">
+                <img src="neutral.png" alt="Neutral">
+            </label>
+            <label>
+                <input type="radio" name="satisfaction" value="satisfied">
+                <img src="good.png" alt="Good">
+            </label>
+            <label>
+                <input type="radio" name="satisfaction" value="very-satisfied">
+                <img src="excellent.png" alt="Excellent">
+            </label>
+        </div>
+        <textarea id="feedback" placeholder="Share with us :)"></textarea>
+        <button type="button" onclick="sendToWhatsApp()">Send</button>
+    </div>
+
+    <script>
+        function sendToWhatsApp() {
+            // Get feedback details
+            const satisfaction = document.querySelector('input[name="satisfaction"]:checked');
+            const feedback = document.getElementById("feedback").value;
+
+            if (!satisfaction) {
+                alert("Please select a satisfaction level!");
+                return;
+            }
+
+            // Construct the WhatsApp message
+            const message = `Feedback:\nSatisfaction: ${satisfaction.value}\nDetails: ${feedback}`;
+
+            // Your WhatsApp number (use international format without leading zero, e.g., 601160807996 for Malaysia)
+            const whatsappNumber = "601160807996"; // Replace with your WhatsApp number
+
+            // Open WhatsApp URL
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, "_blank");
+        }
+    </script>
+</body>
+</html>
